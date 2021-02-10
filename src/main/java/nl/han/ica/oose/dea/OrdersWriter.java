@@ -12,42 +12,22 @@ public class OrdersWriter {
 
         for (int i = 0; i < orders.getOrdersCount(); i++) {
             Order order = orders.getOrder(i);
-            sb.append("{");
-            sb.append("\"id\": ");
-            sb.append(order.getOrderId());
-            sb.append(", ");
-            sb.append("\"products\": [");
+            sb.append("{\"id\": " + order.getOrderId() + ", \"products\": [");
             for (int j = 0; j < order.getProductsCount(); j++) {
                 Product product = order.getProduct(j);
 
-                sb.append("{");
-                sb.append("\"code\": \"");
-                sb.append(product.getCode());
-                sb.append("\", ");
-                sb.append("\"color\": \"");
-                sb.append(getColorFor(product));
-                sb.append("\", ");
+                sb.append("{\"code\": \"" + product.getCode() + "\", \"color\": \"" + getColorFor(product) + "\", ");
 
                 if (product.getSize() != -1) {
-                    sb.append("\"size\": \"");
-                    sb.append(getSizeFor(product));
-                    sb.append("\", ");
+                    sb.append("\"size\": \""+getSizeFor(product)+"\", ");
                 }
-
-                sb.append("\"price\": ");
-                sb.append(product.getPrice());
-                sb.append(", ");
-                sb.append("\"currency\": \"");
-                sb.append(product.getCurrency());
-                sb.append("\"}, ");
+                sb.append("\"price\": "+product.getPrice()+", \"currency\": \""+product.getCurrency()+"\"}, ");
             }
 
             if (order.getProductsCount() > 0) {
                 sb.delete(sb.length() - 2, sb.length());
             }
-
-            sb.append("]");
-            sb.append("}, ");
+            sb.append("]}, ");
         }
 
         if (orders.getOrdersCount() > 0) {
